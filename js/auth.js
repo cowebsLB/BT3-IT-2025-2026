@@ -35,6 +35,8 @@
 
     async function onLogin(e){
         e.preventDefault();
+        const form = /** @type {HTMLFormElement} */(e.target);
+        if (!form.checkValidity()) { form.reportValidity(); return; }
         if (window.SupabaseConfig?.init) await window.SupabaseConfig.init();
         if (window.SupabaseConfig?.ready) await window.SupabaseConfig.ready();
         const client = getClient();
@@ -49,6 +51,8 @@
 
     async function onSignup(e){
         e.preventDefault();
+        const form = /** @type {HTMLFormElement} */(e.target);
+        if (!form.checkValidity()) { form.reportValidity(); return; }
         if (window.SupabaseConfig?.init) await window.SupabaseConfig.init();
         if (window.SupabaseConfig?.ready) await window.SupabaseConfig.ready();
         const client = getClient();
