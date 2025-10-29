@@ -66,15 +66,23 @@
         if (!name) { showMessage('Please enter your name', false); return; }
         if (password !== passwordConfirm) { showMessage('Passwords do not match', false); return; }
         if (!tos) { showMessage('You must agree to the Terms', false); return; }
-
-        const { error } = await client.auth.signUp({ 
-            email, 
-            password,
-            options: { data: { full_name: name } }
-        });
-        if (error) { showMessage(error.message || 'Sign up failed', false); return; }
-        showMessage('Check your email to confirm your account', true);
-        refreshSessionUI();
+        showMessage('Submitting...', true);
+        try {
+            const { data, error } = await client.auth.signUp({ 
+                email, 
+                password,
+                options: { data: { full_name: name } }
+            });
+            if (error) { showMessage(error.message || 'Sign up failed', false); return; }
+            if (data?.user) {
+                showMessage('Check your email to confirm your account', true);
+            } else {
+                showMessage('Sign up initiated. Check your inbox.', true);
+            }
+            refreshSessionUI();
+        } catch (err) {
+            showMessage('Sign up failed. Please try again.', false);
+        }
     }
 
     async function onSignout(){
