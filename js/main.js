@@ -25,6 +25,44 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('theme', newTheme);
         });
     }
+
+    // Auth-aware header button (Login/Account)
+    // Requires js/supabase-config.js loaded on the page
+    const authCta = document.querySelector('[data-auth-cta]');
+    async function updateAuthCta() {
+        try {
+            const client = window.SupabaseConfig?.getClient?.();
+            if (!authCta || !client) return;
+            const { data } = await client.auth.getUser();
+            const user = data && data.user;
+            if (user) {
+                authCta.textContent = user.email || 'Account';
+                authCta.setAttribute('href', 'auth.html');
+                authCta.setAttribute('title', 'View account');
+                authCta.classList.add('font-semibold');
+            } else {
+                authCta.textContent = 'Login';
+                authCta.setAttribute('href', 'auth.html');
+                authCta.setAttribute('title', 'Sign in or create account');
+                authCta.classList.remove('font-semibold');
+            }
+        } catch (_) {
+            // no-op
+        }
+    }
+    if (authCta) {
+        // ensure supabase init kicks in
+        if (window.SupabaseConfig?.init) window.SupabaseConfig.init();
+        // initial update and subscribe to auth changes if available
+        updateAuthCta();
+        const client = window.SupabaseConfig?.getClient?.();
+        if (client && client.auth) {
+            client.auth.onAuthStateChange(updateAuthCta);
+        } else {
+            // retry once after a short delay if client not ready
+            setTimeout(updateAuthCta, 800);
+        }
+    }
 });
 
 // Utility function to get URL query parameters

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up | BT3 IT Course</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-extrabold text-blue-800">BT3 IT Course</h1>
+                <p class="text-gray-600 mt-1">Access your account</p>
+            </div>
+
+            <div class="flex bg-blue-50 rounded-lg p-1 mb-6" role="tablist" aria-label="Auth tabs">
+                <button id="tab-login" class="flex-1 py-2 rounded-md text-sm font-semibold bg-white shadow" role="tab" aria-selected="true">Login</button>
+                <button id="tab-signup" class="flex-1 py-2 rounded-md text-sm font-semibold text-blue-900/80" role="tab" aria-selected="false">Sign Up</button>
+            </div>
+
+            <form id="login-form" class="space-y-4" autocomplete="on">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input id="login-email" name="email" type="email" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="login-password" name="password" type="password" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full btn-primary text-white rounded-lg px-4 py-2 font-semibold">Login</button>
+            </form>
+
+            <form id="signup-form" class="space-y-4 hidden" autocomplete="on">
+                <div>
+                    <label for="signup-name" class="block text-sm font-medium text-gray-700">Full name</label>
+                    <input id="signup-name" name="name" type="text" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your name">
+                </div>
+                <div>
+                    <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input id="signup-email" name="email" type="email" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="signup-password" name="password" type="password" minlength="6" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="At least 6 characters">
+                </div>
+                <div>
+                    <label for="signup-password-confirm" class="block text-sm font-medium text-gray-700">Confirm password</label>
+                    <input id="signup-password-confirm" name="password_confirm" type="password" minlength="6" required class="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Re-enter password">
+                </div>
+                <div class="flex items-start gap-3">
+                    <input id="signup-tos" type="checkbox" required class="mt-1" aria-label="Agree to terms">
+                    <label for="signup-tos" class="text-sm text-gray-600">I agree to the <a href="tos.html" class="underline text-blue-700">Terms of Service</a> and <a href="tos.html#privacy" class="underline text-blue-700">Privacy Policy</a>.</label>
+                </div>
+                <button type="submit" class="w-full btn-primary text-white rounded-lg px-4 py-2 font-semibold">Create Account</button>
+            </form>
+
+            <div id="auth-message" class="mt-4 text-sm text-center"></div>
+
+            <div id="auth-session" class="hidden mt-6 p-4 rounded-lg bg-green-50 text-green-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="font-semibold">Signed in</p>
+                        <p id="auth-user-email" class="text-sm"></p>
+                    </div>
+                    <button id="btn-signout" class="text-sm font-semibold text-green-800 underline">Sign out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // basic tab switching
+        (function(){
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            function showLogin(){
+                tabLogin.classList.add('bg-white','shadow');
+                tabLogin.setAttribute('aria-selected','true');
+                tabSignup.classList.remove('bg-white','shadow');
+                tabSignup.setAttribute('aria-selected','false');
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            }
+            function showSignup(){
+                tabSignup.classList.add('bg-white','shadow');
+                tabSignup.setAttribute('aria-selected','true');
+                tabLogin.classList.remove('bg-white','shadow');
+                tabLogin.setAttribute('aria-selected','false');
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+            tabLogin.addEventListener('click', showLogin);
+            tabSignup.addEventListener('click', showSignup);
+        })();
+    </script>
+</body>
+</html>
+
+

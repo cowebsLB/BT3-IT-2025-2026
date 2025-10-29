@@ -43,6 +43,9 @@
                             <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
                         </div>
                     </li>
+                    <li>
+                        <a href="auth.html" data-auth-cta class="text-blue-100 hover:text-white font-medium transition-colors duration-200">Login</a>
+                    </li>
                 </ul>
             </nav>
             <!-- Hamburger Menu Button -->
@@ -131,11 +134,7 @@
                                 </p>
                                 <span class="coming-soon-badge inline-block mt-4" data-i18n="subjects.contentComingSoon">Content Coming Soon</span>
                                 
-                                <!-- Ghost cards preview -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                                    <div class="ghost-card" style="min-height: 120px; animation-delay: 0s;"></div>
-                                    <div class="ghost-card" style="min-height: 120px; animation-delay: 0.2s;"></div>
-                                </div>
+                                
                                 
                                 <!-- File Upload Section for Students -->
                                 <div class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
@@ -148,7 +147,7 @@
                                     </p>
                                     
                                     <div id="subject-upload-area" class="border-2 border-dashed border-blue-300 dark:border-blue-700 rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-600 transition-colors cursor-pointer bg-white dark:bg-gray-800">
-                                        <input type="file" id="subject-file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.zip,.txt" class="hidden">
+                                        <input type="file" id="subject-file-input" multiple accept=".jpg,.jpeg,.png,.gif,.webp" class="hidden" aria-label="Upload files for this subject" title="Upload files for this subject">
                                         <div id="subject-upload-content">
                                             <i class="fas fa-folder-open text-4xl mb-3 text-blue-400"></i>
                                             <p class="text-gray-700 dark:text-gray-300 font-medium mb-2 text-sm" data-i18n="resources.dragDrop">
@@ -161,7 +160,7 @@
                                                 Select Files
                                             </button>
                                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-3" data-i18n="resources.supportedFormats">
-                                                Supported: PDF, DOC, DOCX, JPG, PNG, GIF, ZIP, TXT (Max 10MB per file)
+                                                Supported images: JPG, PNG, GIF, WEBP (Max 10MB per file)
                                             </p>
                                         </div>
                                     </div>
@@ -401,6 +400,113 @@
             }
         });
         </script>
+
+    <!-- Supabase image upload (images only) -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const SUPABASE_URL = 'https://YOUR_PROJECT_REF.supabase.co'; // TODO: replace
+        const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY'; // TODO: replace
+        const SUPABASE_BUCKET = 'images'; // TODO: replace if different
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const uploadArea = document.getElementById('subject-upload-area');
+        const fileInput = document.getElementById('subject-file-input');
+        const filesList = document.getElementById('subject-files-list');
+
+        function getCurrentSubjectFolder() {
+            const params = new URLSearchParams(window.location.search);
+            const folder = params.get('subject');
+            return folder ? decodeURIComponent(folder) : 'general';
+        }
+
+        function isImage(file) {
+            return /^image\/(jpeg|png|gif|webp)$/.test(file.type);
+        }
+
+        function formatBytes(bytes) {
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            if (bytes === 0) return '0 Byte';
+            const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+            return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
+        }
+
+        function addUploadedItem(name, url) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-2 bg-gray-50 rounded border';
+            item.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <img src="${url}" alt="${name}" class="w-12 h-12 object-cover rounded">
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">${name}</p>
+                        <a href="${url}" target="_blank" class="text-xs text-blue-700 underline">Open image</a>
+                    </div>
+                </div>
+                <button data-url="${url}" class="text-xs text-gray-600 hover:text-red-600" title="Remove preview">Remove</button>
+            `;
+            item.querySelector('button')?.addEventListener('click', () => item.remove());
+            filesList?.prepend(item);
+        }
+
+        async function uploadImages(files) {
+            if (!files || files.length === 0) return;
+
+            const subjectFolder = getCurrentSubjectFolder();
+
+            for (const file of files) {
+                if (!isImage(file)) continue;
+                if (file.size > 10 * 1024 * 1024) continue; // 10MB limit
+
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                const path = `${subjectFolder}/${timestamp}_${sanitizedName}`;
+
+                const { error: uploadError } = await supabase
+                    .storage
+                    .from(SUPABASE_BUCKET)
+                    .upload(path, file, { upsert: false, contentType: file.type });
+
+                if (uploadError) {
+                    console.error('Upload error:', uploadError);
+                    alert(`Failed to upload ${file.name}`);
+                    continue;
+                }
+
+                const { data } = supabase
+                    .storage
+                    .from(SUPABASE_BUCKET)
+                    .getPublicUrl(path);
+
+                if (data?.publicUrl) {
+                    addUploadedItem(file.name, data.publicUrl);
+                }
+            }
+        }
+
+        if (uploadArea && fileInput) {
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('border-blue-500');
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('border-blue-500');
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('border-blue-500');
+                const dtFiles = Array.from(e.dataTransfer?.files || []);
+                uploadImages(dtFiles);
+            });
+            fileInput.addEventListener('change', (e) => {
+                const input = e.target;
+                const selected = Array.from(input.files || []);
+                uploadImages(selected);
+                input.value = '';
+            });
+        }
+    </script>
     </body>
 </html>
 

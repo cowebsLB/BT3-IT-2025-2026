@@ -43,6 +43,9 @@
                             <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
                         </div>
                     </li>
+                    <li>
+                        <a href="auth.html" data-auth-cta class="text-blue-100 hover:text-white font-medium transition-colors duration-200">Login</a>
+                    </li>
                 </ul>
             </nav>
             <!-- Hamburger Menu Button -->
@@ -116,19 +119,25 @@
 
             <!-- Upload/Add Functionality Placeholder -->
             <div class="mt-12 reveal">
-                <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl p-8 text-center text-white relative overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
                     <div class="absolute inset-0 bg-black opacity-10"></div>
-                    <div class="relative z-10">
-                        <h3 class="text-3xl font-black mb-3">Add Gallery Images</h3>
-                        <p class="text-blue-100 mb-6">
-                            Gallery images can be added by uploading files to the <code class="bg-white/20 px-3 py-1 rounded-lg text-sm backdrop-blur-sm">assets/images/</code> folder.
+                    <div class="relative z-10 max-w-4xl mx-auto">
+                        <h3 class="text-3xl font-black mb-2">Add Gallery Images</h3>
+                        <p class="text-blue-100 mb-6">Upload JPG, PNG, GIF, or WEBP (max 10MB each).</p>
+
+                        <div id="gallery-upload-area" class="border-2 border-dashed border-white/30 rounded-xl p-6 text-center hover:border-white/60 transition-colors cursor-pointer bg-white/10 backdrop-blur-sm">
+                            <input type="file" id="gallery-file-input" class="hidden" multiple accept=".jpg,.jpeg,.png,.gif,.webp" aria-label="Upload gallery images" title="Upload gallery images">
+                            <div>
+                                <i class="fas fa-cloud-upload-alt text-4xl mb-3 text-white/90"></i>
+                                <p class="font-semibold mb-1">Drag and drop images here</p>
+                                <p class="text-sm text-white/80 mb-3">or click to browse</p>
+                                <button type="button" class="btn-primary px-4 py-2 rounded-lg text-white font-semibold text-sm">Select Images</button>
+                            </div>
                         </div>
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-left max-w-2xl mx-auto">
-                            <p class="text-sm font-bold mb-2"><i class="fas fa-lightbulb mr-1"></i>Note:</p>
-                            <p class="text-sm text-blue-50 leading-relaxed">
-                                To add images to the gallery, place image files in the <code class="bg-white/20 px-2 py-1 rounded">assets/images/</code> directory. 
-                                The gallery will automatically display images from this folder once they are added.
-                            </p>
+
+                        <div id="gallery-uploaded-files" class="mt-6">
+                            <h5 class="font-semibold mb-2">Recently uploaded</h5>
+                            <div id="gallery-files-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
                         </div>
                     </div>
                 </div>
@@ -153,7 +162,67 @@
     </button>
 
     <script src="../js/main.js"></script>
+    <script src="../js/supabase-config.js"></script>
     <script src="../js/gallery.js"></script>
+    <script>
+        // Gallery image upload via Supabase
+        (function() {
+            const uploadArea = document.getElementById('gallery-upload-area');
+            const fileInput = document.getElementById('gallery-file-input');
+            const filesList = document.getElementById('gallery-files-list');
+
+            function isImage(file) {
+                return /^image\/(jpeg|png|gif|webp)$/.test(file.type);
+            }
+
+            function addThumb(name, url) {
+                if (!filesList) return;
+                const div = document.createElement('div');
+                div.className = 'rounded-lg overflow-hidden bg-white shadow';
+                div.innerHTML = '<img src="' + url + '" alt="' + name + '" class="w-full h-32 object-cover">';
+                filesList.prepend(div);
+            }
+
+            async function uploadFiles(files) {
+                const client = window.SupabaseConfig && window.SupabaseConfig.getClient ? window.SupabaseConfig.getClient() : null;
+                if (!client) { alert('Upload service not ready.'); return; }
+
+                for (const file of Array.from(files)) {
+                    if (!isImage(file)) continue;
+                    if (file.size > 10 * 1024 * 1024) continue;
+
+                    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                    const path = 'gallery/' + timestamp + '_' + safe;
+
+                    const { error: uploadError } = await client
+                        .storage
+                        .from('images')
+                        .upload(path, file, { upsert: false, contentType: file.type });
+                    if (uploadError) { console.error(uploadError); continue; }
+
+                    const { data } = client.storage.from('images').getPublicUrl(path);
+                    if (data && data.publicUrl) {
+                        addThumb(file.name, data.publicUrl);
+                        if (window.galleryLoader) {
+                            window.galleryLoader.images.unshift({ src: data.publicUrl, alt: file.name, title: file.name, category: 'uploads' });
+                            window.galleryLoader.render();
+                        }
+                    }
+                }
+            }
+
+            if (uploadArea && fileInput) {
+                uploadArea.addEventListener('click', function() { fileInput.click(); });
+                const btn = uploadArea.querySelector('button');
+                if (btn) btn.addEventListener('click', function(e) { e.stopPropagation(); fileInput.click(); });
+                uploadArea.addEventListener('dragover', function(e) { e.preventDefault(); uploadArea.classList.add('border-white/60'); });
+                uploadArea.addEventListener('dragleave', function() { uploadArea.classList.remove('border-white/60'); });
+                uploadArea.addEventListener('drop', function(e) { e.preventDefault(); uploadArea.classList.remove('border-white/60'); uploadFiles(e.dataTransfer.files); });
+                fileInput.addEventListener('change', function(e) { uploadFiles(e.target.files); e.target.value = ''; });
+            }
+        })();
+    </script>
     <script type="module">
         // Initialize language switcher
         import i18n from '../js/i18n.js';

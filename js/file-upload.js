@@ -1,5 +1,5 @@
 // File Upload Handler for Student Document/Image Uploads
-// Uses localStorage for client-side storage (ready for backend integration)
+// Uses Supabase Storage for file uploads and a table for metadata
 
 class FileUploader {
     constructor(uploadAreaId, fileInputId, filesListId) {
@@ -83,12 +83,68 @@ class FileUploader {
         return true;
     }
     
-    uploadFile(file) {
+    async uploadFile(file) {
         const fileId = 'file_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        const reader = new FileReader();
         
         // Show upload progress
         this.showUploadProgress(file, fileId);
+        
+        try {
+            // Try Supabase first
+            const supabaseClient = window.SupabaseConfig?.getClient();
+            
+            if (supabaseClient) {
+                // Upload to Supabase Storage
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${fileId}.${fileExt}`;
+                const filePath = `uploads/${fileName}`;
+                
+                const { data: uploadData, error: uploadError } = await supabaseClient
+                    .storage
+                    .from('student-uploads')
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+                
+                if (uploadError) throw uploadError;
+                
+                // Get public URL
+                const { data: urlData } = supabaseClient
+                    .storage
+                    .from('student-uploads')
+                    .getPublicUrl(filePath);
+                
+                // Save metadata to database
+                const fileData = {
+                    id: fileId,
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    upload_date: new Date().toISOString(),
+                    file_path: filePath,
+                    file_url: urlData.publicUrl,
+                    subject: this.getCurrentSubject() || null
+                };
+                
+                const { error: dbError } = await supabaseClient
+                    .from('uploaded_files')
+                    .insert([fileData]);
+                
+                if (dbError) throw dbError;
+                
+                // Update UI
+                this.hideUploadProgress(fileId);
+                this.displayFile(fileData);
+                this.showSuccess(file.name);
+                return;
+            }
+        } catch (error) {
+            console.warn('Supabase upload failed, falling back to localStorage:', error);
+        }
+        
+        // Fallback to localStorage if Supabase is not available
+        const reader = new FileReader();
         
         reader.onload = (e) => {
             const fileData = {
@@ -100,12 +156,10 @@ class FileUploader {
                 data: e.target.result
             };
             
-            // Store in localStorage (for demo - in production, this would go to backend)
             const uploadedFiles = this.getUploadedFiles();
             uploadedFiles.push(fileData);
             localStorage.setItem('student_uploads', JSON.stringify(uploadedFiles));
             
-            // Update UI
             this.hideUploadProgress(fileId);
             this.displayFile(fileData);
             this.showSuccess(file.name);
@@ -117,6 +171,12 @@ class FileUploader {
         };
         
         reader.readAsDataURL(file);
+    }
+    
+    getCurrentSubject() {
+        // Try to get subject from URL or context
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('subject') || null;
     }
     
     showUploadProgress(file, fileId) {
@@ -148,13 +208,53 @@ class FileUploader {
         }
     }
     
-    getUploadedFiles() {
+    async loadUploadedFiles() {
+        try {
+            const supabaseClient = window.SupabaseConfig?.getClient();
+            const currentSubject = this.getCurrentSubject();
+            
+            if (supabaseClient) {
+                // Load from Supabase
+                let query = supabaseClient
+                    .from('uploaded_files')
+                    .select('*')
+                    .order('upload_date', { ascending: false });
+                
+                // Filter by subject if on a subject page
+                if (currentSubject) {
+                    query = query.eq('subject', currentSubject);
+                }
+                
+                const { data: files, error } = await query;
+                
+                if (error) throw error;
+                
+                if (files && files.length > 0) {
+                    files.forEach(file => {
+                        // Normalize data structure
+                        const fileData = {
+                            id: file.id,
+                            name: file.name,
+                            type: file.type,
+                            size: file.size,
+                            uploadDate: file.upload_date,
+                            data: file.file_url,
+                            file_url: file.file_url,
+                            file_path: file.file_path
+                        };
+                        this.displayFile(fileData);
+                    });
+                    return;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to load from Supabase, using localStorage:', error);
+        }
+        
+        // Fallback to localStorage
         const stored = localStorage.getItem('student_uploads');
-        return stored ? JSON.parse(stored) : [];
-    }
-    
-    loadUploadedFiles() {
-        const files = this.getUploadedFiles();
+        const files = stored ? JSON.parse(stored) : [];
+        
         if (files.length === 0) {
             if (this.filesList) {
                 this.filesList.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400 italic">${window.i18n ? window.i18n.t('resources.noFilesUploaded') : 'No files uploaded yet'}</p>`;
@@ -163,6 +263,11 @@ class FileUploader {
         }
         
         files.forEach(file => this.displayFile(file));
+    }
+    
+    getUploadedFiles() {
+        const stored = localStorage.getItem('student_uploads');
+        return stored ? JSON.parse(stored) : [];
     }
     
     displayFile(file) {
@@ -189,7 +294,7 @@ class FileUploader {
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <a href="${file.data}" download="${file.name}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium">
+                <a href="${file.file_url || file.data}" download="${file.name}" target="_blank" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium">
                     <i class="fas fa-download mr-1"></i>${window.i18n ? window.i18n.t('common.download') : 'Download'}
                 </a>
                 <button class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium" onclick="fileUploader.removeFile('${file.id}')">
@@ -201,7 +306,41 @@ class FileUploader {
         this.filesList.appendChild(fileItem);
     }
     
-    removeFile(fileId) {
+    async removeFile(fileId) {
+        try {
+            const supabaseClient = window.SupabaseConfig?.getClient();
+            
+            if (supabaseClient) {
+                // Get file info first
+                const { data: fileData, error: fetchError } = await supabaseClient
+                    .from('uploaded_files')
+                    .select('file_path')
+                    .eq('id', fileId)
+                    .single();
+                
+                if (!fetchError && fileData) {
+                    // Delete from storage
+                    const { error: storageError } = await supabaseClient
+                        .storage
+                        .from('student-uploads')
+                        .remove([fileData.file_path]);
+                    
+                    if (storageError) throw storageError;
+                    
+                    // Delete from database
+                    const { error: dbError } = await supabaseClient
+                        .from('uploaded_files')
+                        .delete()
+                        .eq('id', fileId);
+                    
+                    if (dbError) throw dbError;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to delete from Supabase, removing from localStorage:', error);
+        }
+        
+        // Fallback to localStorage
         const uploadedFiles = this.getUploadedFiles().filter(f => f.id !== fileId);
         localStorage.setItem('student_uploads', JSON.stringify(uploadedFiles));
         

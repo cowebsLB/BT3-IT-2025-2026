@@ -18,36 +18,13 @@ class GalleryLoader {
             this.images = config.images || [];
             this.render();
         } catch (error) {
-            console.log('Using fallback gallery data');
-            this.loadFallback();
+            console.log('Gallery config missing or invalid; showing empty state');
+            this.images = [];
+            this.render();
         }
     }
 
-    loadFallback() {
-        // Fallback: Try to load common image formats from assets/images/
-        // This is a placeholder - in production, you'd use server-side logic
-        this.images = [
-            {
-                src: 'assets/images/placeholder-1.jpg',
-                alt: 'Class photo 1',
-                title: 'IT Class Session',
-                category: 'classes'
-            },
-            {
-                src: 'assets/images/placeholder-2.jpg',
-                alt: 'Workshop photo',
-                title: 'Student Workshop',
-                category: 'workshops'
-            },
-            {
-                src: 'assets/images/placeholder-3.jpg',
-                alt: 'Project showcase',
-                title: 'Student Projects',
-                category: 'projects'
-            }
-        ];
-        this.render();
-    }
+    // Removed fallback to avoid showing placeholder or ghost images
 
     render() {
         if (!this.container) return;
@@ -97,20 +74,12 @@ class GalleryLoader {
     }
 
     showEmptyState() {
-        // Show animated empty state with ghost cards
+        // Show minimal empty state without ghost placeholders
         this.container.innerHTML = `
-            <div class="empty-state col-span-full">
-                <div class="empty-state-icon">📸</div>
+            <div class="empty-state col-span-full text-center py-12">
+                <div class="empty-state-icon mb-2">📸</div>
                 <h3 class="empty-state-title">Gallery Coming Soon</h3>
                 <p class="empty-state-text">We're working on adding photos from classes, workshops, and student projects.</p>
-                <span class="coming-soon-badge">Coming Soon</span>
-                
-                <!-- Ghost Cards Preview -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-2xl mx-auto">
-                    <div class="ghost-card" style="animation-delay: 0s;"></div>
-                    <div class="ghost-card" style="animation-delay: 0.2s;"></div>
-                    <div class="ghost-card" style="animation-delay: 0.4s;"></div>
-                </div>
             </div>
         `;
     }
@@ -196,5 +165,7 @@ class GalleryLoader {
 document.addEventListener('DOMContentLoaded', () => {
     const galleryLoader = new GalleryLoader('gallery-container');
     galleryLoader.loadFromJSON();
+    // Expose for other scripts (e.g., upload UI) to add images dynamically
+    window.galleryLoader = galleryLoader;
 });
 

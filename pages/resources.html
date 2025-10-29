@@ -43,6 +43,9 @@
                             <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
                         </div>
                     </li>
+                    <li>
+                        <a href="auth.html" data-auth-cta class="text-blue-100 hover:text-white font-medium transition-colors duration-200">Login</a>
+                    </li>
                 </ul>
             </nav>
             <!-- Hamburger Menu Button -->
@@ -320,7 +323,9 @@
     </button>
 
     <script src="../js/main.js"></script>
+    <script src="../js/supabase-config.js"></script>
     <script src="../js/docs-preview.js"></script>
+    <script src="../js/file-upload.js"></script>
     <script>
         // Hamburger Menu & Sidebar Functionality
         const hamburger = document.querySelector('.hamburger-menu');
@@ -411,6 +416,13 @@
                     const lang = this.getAttribute('data-lang');
                     i18n.setLanguage(lang);
                 });
+            });
+            
+            // Reload uploaded files when language changes
+            document.addEventListener('languageChanged', () => {
+                if (window.fileUploader) {
+                    window.fileUploader.loadUploadedFiles();
+                }
             });
         });
     </script>

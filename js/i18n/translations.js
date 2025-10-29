@@ -167,7 +167,12 @@ export const translations = {
             description: 'Connect with classmates and instructors',
             comingSoon: 'Chat Coming Soon',
             comingSoonDescription: 'A real-time chat feature will be available here. Students can discuss topics, ask questions, and collaborate with peers.',
-            supabaseNote: 'This feature will be integrated with Supabase for real-time messaging.'
+            supabaseNote: 'This feature will be integrated with Supabase for real-time messaging.',
+            liveChat: 'Live Chat',
+            loading: 'Loading messages...',
+            send: 'Send',
+            typeMessage: 'Type your message...',
+            yourName: 'Your name (optional)'
         },
         
         // Subject descriptions
@@ -363,7 +368,12 @@ export const translations = {
             description: 'Connectez-vous avec vos camarades et instructeurs',
             comingSoon: 'Chat Bientôt Disponible',
             comingSoonDescription: 'Une fonctionnalité de chat en temps réel sera disponible ici. Les étudiants peuvent discuter de sujets, poser des questions et collaborer avec leurs pairs.',
-            supabaseNote: 'Cette fonctionnalité sera intégrée avec Supabase pour la messagerie en temps réel.'
+            supabaseNote: 'Cette fonctionnalité sera intégrée avec Supabase pour la messagerie en temps réel.',
+            liveChat: 'Chat en Direct',
+            loading: 'Chargement des messages...',
+            send: 'Envoyer',
+            typeMessage: 'Tapez votre message...',
+            yourName: 'Votre nom (optionnel)'
         },
         
         // Subject descriptions
