@@ -107,4 +107,16 @@ window.requireAuth = async function redirectIfNoAuth(redirectTo = 'auth.html'){
     }
 };
 
+// Require a role from current user; if not present, redirect
+window.requireRole = async function requireRole(roles, redirectTo = 'auth.html'){
+    const client = window.SupabaseConfig?.getClient?.();
+    if (!client) return;
+    const { data } = await client.auth.getUser();
+    const user = data?.user;
+    if (!user) { window.location.href = redirectTo; return; }
+    const role = user.user_metadata?.role || 'student';
+    const allowed = Array.isArray(roles) ? roles.includes(role) : role === roles;
+    if (!allowed) window.location.href = redirectTo;
+};
+
 

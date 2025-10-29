@@ -36,8 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const { data } = await client.auth.getUser();
             const user = data && data.user;
             if (user) {
-                authCta.textContent = user.email || 'Account';
-                authCta.setAttribute('href', 'auth.html');
+                const nm = user.user_metadata && user.user_metadata.full_name;
+                authCta.textContent = nm || user.email || 'Account';
+                authCta.setAttribute('href', 'account.html');
                 authCta.setAttribute('title', 'View account');
                 authCta.classList.add('font-semibold');
             } else {

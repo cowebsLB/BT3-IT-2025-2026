@@ -116,6 +116,8 @@ class FileUploader {
                     .getPublicUrl(filePath);
                 
                 // Save metadata to database
+                const { data: userData } = await supabaseClient.auth.getUser();
+                const user = userData?.user;
                 const fileData = {
                     id: fileId,
                     name: file.name,
@@ -124,7 +126,9 @@ class FileUploader {
                     upload_date: new Date().toISOString(),
                     file_path: filePath,
                     file_url: urlData.publicUrl,
-                    subject: this.getCurrentSubject() || null
+                    subject: this.getCurrentSubject() || null,
+                    uploader_id: user?.id || null,
+                    uploader_email: user?.email || null
                 };
                 
                 const { error: dbError } = await supabaseClient

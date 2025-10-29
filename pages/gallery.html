@@ -117,8 +117,8 @@
 
             </div>
 
-            <!-- Upload/Add Functionality Placeholder -->
-            <div class="mt-12 reveal">
+            <!-- Upload/Add Images -->
+            <div id="gallery-upload-section" class="mt-12 reveal">
                 <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
                     <div class="absolute inset-0 bg-black opacity-10"></div>
                     <div class="relative z-10 max-w-4xl mx-auto">
@@ -142,12 +142,21 @@
                     </div>
                 </div>
             </div>
+            <div id="gallery-upload-guest" class="mt-12 hidden">
+                <div class="bg-white rounded-3xl shadow p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-2">Sign in to upload</h3>
+                    <p class="text-gray-600 mb-4">You need an account to upload images to the gallery.</p>
+                    <a href="auth.html" class="btn-primary text-white rounded-lg px-4 py-2 font-semibold">Login / Sign up</a>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
         <div class="container mx-auto px-6 text-center text-sm">
             &copy; <span id="year"></span> BT3 IT Course, ETSTC. All rights reserved.
+            <br>
+            <span>Made by <a href="https://cowebslb.com" target="_blank" rel="noopener" class="underline text-blue-200">CoWebsLB</a></span>
         </div>
     </footer>
 
@@ -170,6 +179,8 @@
             const uploadArea = document.getElementById('gallery-upload-area');
             const fileInput = document.getElementById('gallery-file-input');
             const filesList = document.getElementById('gallery-files-list');
+            const section = document.getElementById('gallery-upload-section');
+            const guest = document.getElementById('gallery-upload-guest');
 
             function isImage(file) {
                 return /^image\/(jpeg|png|gif|webp)$/.test(file.type);
@@ -211,6 +222,31 @@
                     }
                 }
             }
+
+            async function initVisibility() {
+                const client = window.SupabaseConfig && window.SupabaseConfig.getClient ? window.SupabaseConfig.getClient() : null;
+                if (!client) return;
+                const { data } = await client.auth.getUser();
+                const user = data && data.user;
+                if (user) {
+                    section?.classList.remove('hidden');
+                    guest?.classList.add('hidden');
+                } else {
+                    section?.classList.add('hidden');
+                    guest?.classList.remove('hidden');
+                }
+            }
+
+            initVisibility();
+            // re-check on auth changes if available
+            (function subscribeAuth(){
+                const client = window.SupabaseConfig && window.SupabaseConfig.getClient ? window.SupabaseConfig.getClient() : null;
+                if (client && client.auth) {
+                    client.auth.onAuthStateChange(initVisibility);
+                } else {
+                    setTimeout(subscribeAuth, 600);
+                }
+            })();
 
             if (uploadArea && fileInput) {
                 uploadArea.addEventListener('click', function() { fileInput.click(); });
