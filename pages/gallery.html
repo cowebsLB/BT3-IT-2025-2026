@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | BT3 IT Course</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header / Navigation Bar -->
+    <header class="bg-blue-700 shadow">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                <a href="../index.html" class="hover:text-blue-200 transition-colors">BT3 IT Course <span class="text-blue-200">| ETSTC</span></a>
+            </h1>
+            <nav class="desktop-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="../index.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.home">Home</a>
+                    </li>
+                    <li>
+                        <a href="subjects.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.subjects">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="text-white font-medium border-b-2 border-white" data-i18n="nav.gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="resources.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.resources">Student Resources</a>
+                    </li>
+                    <li>
+                        <a href="chat.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.chat">Chat</a>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li>
+                        <div class="language-switcher" data-language-switcher>
+                            <button data-lang="en" aria-pressed="true" title="English">EN</button>
+                            <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../index.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="subjects.html" data-i18n="nav.subjects">Subjects</a>
+                </li>
+                <li>
+                    <a href="gallery.html" class="active" data-i18n="nav.gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="resources.html" data-i18n="nav.resources">Student Resources</a>
+                </li>
+                <li>
+                    <a href="chat.html" data-i18n="nav.chat">Chat</a>
+                </li>
+                <!-- Language Switcher in Sidebar -->
+                <li class="mt-4 pt-4 border-t border-white/20">
+                    <div class="language-switcher mx-2" data-language-switcher>
+                        <button data-lang="en" aria-pressed="true" class="w-full">EN</button>
+                        <button data-lang="fr" aria-pressed="false" class="w-full">FR</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="relative bg-gradient-to-br from-cyan-600 via-blue-600 to-purple-600 py-20 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center hero-text">
+                    <h2 class="text-5xl md:text-7xl font-black mb-6 text-white" data-i18n="gallery.title">Photo Gallery</h2>
+                    <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed" data-i18n="gallery.description">
+                        Photos from classes, workshops, and student projects
+                    </p>
+                </div>
+            </div>
+            <div class="absolute top-20 right-10 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl opacity-10 floating"></div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <section class="relative bg-gradient-to-b from-white via-gray-50 to-white py-20 overflow-hidden">
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Gallery images loaded dynamically via gallery.js -->
+                <!-- Add images to assets/images/ and update assets/gallery-config.json -->
+            </div>
+
+            </div>
+
+            <!-- Upload/Add Functionality Placeholder -->
+            <div class="mt-12 reveal">
+                <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl p-8 text-center text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black opacity-10"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-3xl font-black mb-3">Add Gallery Images</h3>
+                        <p class="text-blue-100 mb-6">
+                            Gallery images can be added by uploading files to the <code class="bg-white/20 px-3 py-1 rounded-lg text-sm backdrop-blur-sm">assets/images/</code> folder.
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-left max-w-2xl mx-auto">
+                            <p class="text-sm font-bold mb-2"><i class="fas fa-lightbulb mr-1"></i>Note:</p>
+                            <p class="text-sm text-blue-50 leading-relaxed">
+                                To add images to the gallery, place image files in the <code class="bg-white/20 px-2 py-1 rounded">assets/images/</code> directory. 
+                                The gallery will automatically display images from this folder once they are added.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            &copy; <span id="year"></span> BT3 IT Course, ETSTC. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script type="module">
+        // Initialize language switcher
+        import i18n from '../js/i18n.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language switcher buttons
+            document.querySelectorAll('[data-lang]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    i18n.setLanguage(lang);
+                });
+            });
+        });
+    </script>
+    <script>
+        // Hamburger Menu & Sidebar Functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const body = document.body;
+        
+        function openSidebar() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (sidebar && sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                hamburger && !hamburger.contains(e.target)) {
+                closeSidebar();
+            }
+        });
+        
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+        
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollProgress + '%';
+            }
+        });
+        
+        // Gallery loading functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll reveal animations
+            const reveals = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+            
+            // Show loading state while gallery loads
+            const galleryContainer = document.getElementById('gallery-container');
+            if (galleryContainer && galleryContainer.children.length === 0) {
+                galleryContainer.innerHTML = `
+                    <div class="col-span-full flex items-center justify-center py-16">
+                        <div class="loading-spinner"></div>
+                    </div>
+                `;
+            }
+        });
+        
+        // Keyboard navigation for gallery lightbox
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const lightbox = document.querySelector('.lightbox');
+                if (lightbox) {
+                    const closeBtn = lightbox.querySelector('#closeLightbox');
+                    if (closeBtn) closeBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+

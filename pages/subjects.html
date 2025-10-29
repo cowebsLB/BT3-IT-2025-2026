@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects | BT3 IT Course</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header / Navigation Bar -->
+    <header class="bg-blue-700 shadow">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                <a href="../index.html" class="hover:text-blue-200 transition-colors">BT3 IT Course <span class="text-blue-200">| ETSTC</span></a>
+            </h1>
+            <nav class="desktop-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="../index.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.home">Home</a>
+                    </li>
+                    <li>
+                        <a href="subjects.html" class="text-white font-medium border-b-2 border-white" data-i18n="nav.subjects">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="resources.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.resources">Student Resources</a>
+                    </li>
+                    <li>
+                        <a href="chat.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.chat">Chat</a>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li>
+                        <div class="language-switcher" data-language-switcher>
+                            <button data-lang="en" aria-pressed="true" title="English">EN</button>
+                            <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../index.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="subjects.html" class="active" data-i18n="nav.subjects">Subjects</a>
+                </li>
+                <li>
+                    <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="resources.html" data-i18n="nav.resources">Student Resources</a>
+                </li>
+                <li>
+                    <a href="chat.html" data-i18n="nav.chat">Chat</a>
+                </li>
+                <!-- Language Switcher in Sidebar -->
+                <li class="mt-4 pt-4 border-t border-white/20">
+                    <div class="language-switcher mx-2" data-language-switcher>
+                        <button data-lang="en" aria-pressed="true" class="w-full">EN</button>
+                        <button data-lang="fr" aria-pressed="false" class="w-full">FR</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="relative bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-600 py-20 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center hero-text">
+                    <h2 class="text-5xl md:text-7xl font-black mb-6 text-white" data-i18n="subjects.title">All Subjects</h2>
+                    <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed" data-i18n="subjects.description">
+                        Browse all available subjects and course materials
+                    </p>
+                </div>
+            </div>
+            <!-- Decorative blobs -->
+            <div class="absolute top-20 left-10 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl opacity-10 floating"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 floating-delayed"></div>
+        </section>
+
+        <!-- Search Bar -->
+        <section class="relative bg-white py-8 border-b">
+            <div class="container mx-auto px-6">
+                <div class="max-w-2xl mx-auto">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="subject-search" 
+                            data-i18n="subjects.searchPlaceholder"
+                            placeholder="Search subjects..." 
+                            class="w-full px-6 py-4 pl-12 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-lg shadow-sm"
+                        >
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <button 
+                            id="clear-search" 
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
+                            aria-label="Clear search"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="search-results-count" class="text-sm text-gray-500 mt-3 text-center hidden"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subjects Grid -->
+        <section class="relative bg-gradient-to-b from-white via-blue-50 to-white py-20 overflow-hidden">
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 py-12 relative z-10">
+                <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Subjects will be dynamically generated here -->
+                </div>
+                <div id="no-results" class="hidden text-center py-16">
+                    <div class="text-6xl mb-4">🔍</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="subjects.noSubjectsFound">No subjects found matching your search.</h3>
+                    <p class="text-gray-600">Try searching with different keywords</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            &copy; <span id="year"></span> BT3 IT Course, ETSTC. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/easter-eggs.js"></script>
+    <script>
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollProgress + '%';
+            }
+        });
+        
+        // Hamburger Menu & Sidebar Functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const body = document.body;
+        
+        function openSidebar() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (sidebar && sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                hamburger && !hamburger.contains(e.target)) {
+                closeSidebar();
+            }
+        });
+        
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+        
+        // Get translations helper
+        function getDescription(key) {
+            if (!window.i18n) return '';
+            const translation = window.i18n.t(`subjectDescriptions.${key}`);
+            // Return translation only if it's not the key itself (which means it wasn't found)
+            return translation && translation !== `subjectDescriptions.${key}` ? translation : '';
+        }
+        
+        // Subject data mapping to docs folder structure
+        function getSubjects() {
+            if (!window.i18n) {
+                console.warn('i18n not ready yet');
+                return [];
+            }
+            
+            const lang = window.i18n.getLanguage();
+            const subjects = [
+                {
+                    name: 'Assemblage',
+                    folder: 'Assemblage',
+                    descriptionKey: 'assemblage',
+                    icon: '<i class="fas fa-tools"></i>'
+                },
+                {
+                    name: 'Math',
+                    folder: 'math',
+                    descriptionKey: 'math',
+                    icon: '<i class="fas fa-calculator"></i>'
+                },
+                {
+                    name: 'Methodology',
+                    folder: 'methodology',
+                    descriptionKey: 'methodology',
+                    icon: '<i class="fas fa-clipboard-list"></i>'
+                },
+                {
+                    name: 'Operating Systems (PAS)',
+                    folder: 'PAS (OS)',
+                    descriptionKey: 'operatingSystems',
+                    icon: '<i class="fas fa-laptop-code"></i>'
+                },
+                {
+                    name: 'Networks (Resaux)',
+                    folder: 'resaux (network)',
+                    descriptionKey: 'networks',
+                    icon: '<i class="fas fa-network-wired"></i>'
+                },
+                {
+                name: 'Programming',
+                    folder: 'coding',
+                    descriptionKey: 'coding',
+                    icon: '<i class="fas fa-code"></i>'
+                },
+                {
+                    name: 'Access',
+                    folder: 'access',
+                    descriptionKey: 'access',
+                    icon: '<i class="fas fa-database"></i>'
+                },
+                {
+                    name: 'Arabic',
+                    folder: 'arabic',
+                    descriptionKey: 'arabic',
+                    icon: '<i class="fas fa-book-reader"></i>'
+                },
+                {
+                    name: 'French',
+                    folder: 'french',
+                    descriptionKey: 'french',
+                    icon: '<i class="fas fa-language"></i>'
+                },
+                {
+                    name: 'Law',
+                    folder: 'law',
+                    descriptionKey: 'law',
+                    icon: '<i class="fas fa-gavel"></i>'
+                },
+                {
+                    name: 'Sociology',
+                    folder: 'socio',
+                    descriptionKey: 'sociology',
+                    icon: '<i class="fas fa-users"></i>'
+                }
+            ];
+            
+            // Add translated descriptions
+            subjects.forEach(subject => {
+                if (subject.descriptionKey) {
+                    const translated = getDescription(subject.descriptionKey);
+                    if (translated) {
+                        subject.description = translated;
+                    } else {
+                        // Fallback
+                        subject.description = lang === 'fr' ? 'À venir...' : 'Coming soon...';
+                    }
+                }
+            });
+            
+            return subjects;
+        }
+        
+        let subjects = [];
+
+        // Render subjects
+        let allSubjectCards = [];
+        
+        function renderSubjects(subjectsToRender = subjects, animate = false) {
+            const container = document.getElementById('subjects-container');
+            const noResults = document.getElementById('no-results');
+            const resultsCount = document.getElementById('search-results-count');
+            
+            // Clear existing cards
+            container.innerHTML = '';
+            allSubjectCards = [];
+            
+            if (subjectsToRender.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                if (resultsCount) resultsCount.textContent = '';
+                return;
+            }
+            
+            container.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            
+            if (resultsCount && document.getElementById('subject-search').value) {
+                const count = subjectsToRender.length;
+                const subjectWord = count === 1 ? (window.i18n ? window.i18n.t('common.subject') : 'subject') : (window.i18n ? window.i18n.t('common.subjects') : 'subjects');
+                const foundText = window.i18n ? window.i18n.t('common.found') : 'Found';
+                resultsCount.textContent = `${foundText} ${count} ${subjectWord}`;
+                resultsCount.classList.remove('hidden');
+            } else if (resultsCount) {
+                resultsCount.classList.add('hidden');
+            }
+            
+            subjectsToRender.forEach((subject, index) => {
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'subject-card bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100 reveal';
+                subjectCard.style.animationDelay = `${index * 0.05}s`;
+                subjectCard.setAttribute('data-name', subject.name.toLowerCase());
+                subjectCard.setAttribute('data-description', subject.description.toLowerCase());
+                subjectCard.setAttribute('data-subject-id', subject.folder);
+                subjectCard.setAttribute('tabindex', '0');
+                subjectCard.setAttribute('role', 'article');
+                
+                // Add highlight animation if search was triggered
+                if (animate && index < 3) {
+                    setTimeout(() => {
+                        subjectCard.classList.add('search-result-highlight');
+                        setTimeout(() => {
+                            subjectCard.classList.remove('search-result-highlight');
+                        }, 500);
+                    }, 100 * index);
+                }
+                subjectCard.innerHTML = `
+                    <div class="relative mb-6">
+                        <div class="text-5xl mb-4 transform hover:scale-125 transition-transform duration-300 text-blue-600">${subject.icon}</div>
+                        <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-2xl opacity-30"></div>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-800 mb-4 gradient-text">${subject.name}</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">${subject.description}</p>
+                    <a href="subject.html?subject=${encodeURIComponent(subject.folder)}" 
+                       class="ripple group relative inline-flex items-center justify-center w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden"
+                       data-action="view-subject"
+                       data-subject-id="${subject.folder}">
+                        <span class="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        <span class="relative z-10 flex items-center gap-2">
+                            ${window.i18n ? window.i18n.t('common.viewDetails') : 'View Details'} 
+                            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </span>
+                    </a>
+                `;
+                container.appendChild(subjectCard);
+                allSubjectCards.push(subjectCard);
+            });
+            
+            // Trigger reveal animations
+            const reveals = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+        }
+        
+        // Initialize after i18n is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for i18n to be ready
+            function initializeSubjects() {
+                if (window.i18n) {
+                    subjects = getSubjects();
+                    renderSubjects();
+                } else {
+                    // Retry after a short delay
+                    setTimeout(initializeSubjects, 100);
+                }
+            }
+            
+            // Initialize subjects
+            initializeSubjects();
+            
+            // Language switcher buttons
+            document.querySelectorAll('[data-lang]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    if (window.i18n) {
+                        window.i18n.setLanguage(lang);
+                    }
+                });
+            });
+            
+            // Listen for language changes to reload subjects
+            document.addEventListener('languageChanged', function() {
+                subjects = getSubjects();
+                renderSubjects();
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('subject-search');
+            const clearBtn = document.getElementById('clear-search');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase().trim();
+                    
+                    if (query === '') {
+                        clearBtn.classList.add('hidden');
+                        renderSubjects();
+                        return;
+                    }
+                    
+                    clearBtn.classList.remove('hidden');
+                    
+                    const filtered = subjects.filter(subject => 
+                        subject.name.toLowerCase().includes(query) ||
+                        (subject.description && subject.description.toLowerCase().includes(query)) ||
+                        subject.folder.toLowerCase().includes(query)
+                    );
+                    
+                    // Add highlight animation
+                    renderSubjects(filtered, true);
+                });
+                
+                // Keyboard navigation for search
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        searchInput.value = '';
+                        clearBtn.classList.add('hidden');
+                        renderSubjects();
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const firstResult = document.querySelector('.subject-card');
+                        if (firstResult) {
+                            firstResult.querySelector('a').focus();
+                        }
+                    }
+                });
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    if (searchInput) {
+                        searchInput.value = '';
+                        clearBtn.classList.add('hidden');
+                        renderSubjects();
+                        searchInput.focus();
+                    }
+                });
+            }
+        });
+        </script>
+    </body>
+    </html>
+
+

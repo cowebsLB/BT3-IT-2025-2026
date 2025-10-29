@@ -1,0 +1,26 @@
+{
+  "images": [
+    {
+      "src": "assets/images/gallery-1.jpg",
+      "alt": "IT Class Session",
+      "title": "Programming Fundamentals",
+      "description": "Students learning programming basics",
+      "category": "classes"
+    },
+    {
+      "src": "assets/images/gallery-2.jpg",
+      "alt": "Workshop",
+      "title": "Hardware Assembly Workshop",
+      "description": "Hands-on computer assembly training",
+      "category": "workshops"
+    },
+    {
+      "src": "assets/images/gallery-3.jpg",
+      "alt": "Project Showcase",
+      "title": "Student Project Exhibition",
+      "description": "Showcasing innovative student projects",
+      "category": "projects"
+    }
+  ]
+}
+

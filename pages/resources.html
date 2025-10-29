@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources | BT3 IT Course</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header / Navigation Bar -->
+    <header class="bg-blue-700 shadow">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                <a href="../index.html" class="hover:text-blue-200 transition-colors">BT3 IT Course <span class="text-blue-200">| ETSTC</span></a>
+            </h1>
+            <nav class="desktop-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="../index.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.home">Home</a>
+                    </li>
+                    <li>
+                        <a href="subjects.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.subjects">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="resources.html" class="text-white font-medium border-b-2 border-white" data-i18n="nav.resources">Student Resources</a>
+                    </li>
+                    <li>
+                        <a href="chat.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.chat">Chat</a>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li>
+                        <div class="language-switcher" data-language-switcher>
+                            <button data-lang="en" aria-pressed="true" title="English">EN</button>
+                            <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../index.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="subjects.html" data-i18n="nav.subjects">Subjects</a>
+                </li>
+                <li>
+                    <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="resources.html" class="active" data-i18n="nav.resources">Student Resources</a>
+                </li>
+                <li>
+                    <a href="chat.html" data-i18n="nav.chat">Chat</a>
+                </li>
+                <!-- Language Switcher in Sidebar -->
+                <li class="mt-4 pt-4 border-t border-white/20">
+                    <div class="language-switcher mx-2" data-language-switcher>
+                        <button data-lang="en" aria-pressed="true" class="w-full">EN</button>
+                        <button data-lang="fr" aria-pressed="false" class="w-full">FR</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Page Header -->
+        <section class="relative bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-600 py-20 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center hero-text">
+                    <h2 class="text-5xl md:text-7xl font-black mb-6 text-white" data-i18n="resources.title">Student Resources</h2>
+                    <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed" data-i18n="resources.description">
+                        Study materials, links, and helpful resources
+                    </p>
+                </div>
+            </div>
+            <div class="absolute bottom-20 left-10 w-96 h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 floating"></div>
+        </section>
+
+        <!-- Resources Sections -->
+        <section class="relative bg-gradient-to-b from-white via-gray-50 to-white py-20 overflow-hidden">
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Study Materials -->
+                <div class="reveal bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                        <i class="fas fa-book text-3xl mr-3 text-blue-700"></i>
+                        <span data-i18n="resources.studyMaterials">Study Materials</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-file-alt text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800" data-i18n="resources.courseNotes">Course Notes</p>
+                                <p class="text-sm text-gray-600" data-i18n="resources.courseNotesDesc">Comprehensive notes from all subjects</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-book-reader text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800" data-i18n="resources.textbooks">Textbooks & References</p>
+                                <p class="text-sm text-gray-600" data-i18n="resources.textbooksDesc">Recommended reading materials</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-edit text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800" data-i18n="resources.practiceExercises">Practice Exercises</p>
+                                <p class="text-sm text-gray-600" data-i18n="resources.practiceExercisesDesc">Hands-on exercises and assignments</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bullseye text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800" data-i18n="resources.examPreparation">Exam Preparation</p>
+                                <p class="text-sm text-gray-600" data-i18n="resources.examPreparationDesc">Practice tests and study guides</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- External Resources -->
+                <div class="reveal bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300" style="animation-delay: 0.1s;">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                        <i class="fas fa-link text-3xl mr-3 text-blue-700"></i>
+                        <span data-i18n="resources.usefulLinks">Useful Links</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="https://www.github.com" target="_blank" rel="noopener noreferrer" class="flex items-start text-blue-700 hover:text-blue-900 transition-colors">
+                                <i class="fas fa-link mr-2 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold" data-i18n="resources.github">GitHub</p>
+                                    <p class="text-sm text-gray-600" data-i18n="resources.githubDesc">Code repository and version control</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://stackoverflow.com" target="_blank" rel="noopener noreferrer" class="flex items-start text-blue-700 hover:text-blue-900 transition-colors">
+                                <i class="fas fa-link mr-2 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold" data-i18n="resources.stackOverflow">Stack Overflow</p>
+                                    <p class="text-sm text-gray-600" data-i18n="resources.stackOverflowDesc">Programming Q&A community</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.w3schools.com" target="_blank" rel="noopener noreferrer" class="flex items-start text-blue-700 hover:text-blue-900 transition-colors">
+                                <i class="fas fa-link mr-2 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold" data-i18n="resources.w3schools">W3Schools</p>
+                                    <p class="text-sm text-gray-600" data-i18n="resources.w3schoolsDesc">Web development tutorials</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://docs.python.org" target="_blank" rel="noopener noreferrer" class="flex items-start text-blue-700 hover:text-blue-900 transition-colors">
+                                <i class="fas fa-link mr-2 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold" data-i18n="resources.pythonDocs">Python Documentation</p>
+                                    <p class="text-sm text-gray-600" data-i18n="resources.pythonDocsDesc">Official Python language reference</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Downloadable Files -->
+                <div class="reveal bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                        <i class="fas fa-download text-3xl mr-3 text-blue-700"></i>
+                        <span data-i18n="resources.downloads">Downloads</span>
+                    </h3>
+                    <ul class="space-y-3" id="download-list">
+                        <li class="flex items-start">
+                            <i class="fas fa-box text-blue-700 mr-2 mt-1"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800" data-i18n="resources.softwareToolsTitle">Software Tools</p>
+                                <p class="text-sm text-gray-600 mb-2" data-i18n="resources.softwareToolsDesc">Required development tools and IDEs</p>
+                                <a href="docs/software-tools.pdf" data-document-preview="docs/software-tools.pdf" download class="text-blue-600 hover:text-blue-800 text-sm font-medium underline">software-tools.pdf</a>
+                                <span class="text-xs text-gray-500 ml-2">(2.5 MB)</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-box text-blue-700 mr-2 mt-1"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800" data-i18n="resources.sampleProjects">Sample Projects</p>
+                                <p class="text-sm text-gray-600 mb-2" data-i18n="resources.sampleProjectsDesc">Starter templates and code samples</p>
+                                <a href="docs/sample-projects.zip" data-document-preview="docs/sample-projects.zip" download class="text-blue-600 hover:text-blue-800 text-sm font-medium underline">sample-projects.zip</a>
+                                <span class="text-xs text-gray-500 ml-2">(15 MB)</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-box text-blue-700 mr-2 mt-1"></i>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-800" data-i18n="resources.cheatSheets">Cheat Sheets</p>
+                                <p class="text-sm text-gray-600 mb-2" data-i18n="resources.cheatSheetsDesc">Quick reference guides</p>
+                                <a href="docs/cheatsheet-programming.pdf" data-document-preview="docs/cheatsheet-programming.pdf" download class="text-blue-600 hover:text-blue-800 text-sm font-medium underline">cheatsheet-programming.pdf</a>
+                                <span class="text-xs text-gray-500 ml-2">(1.2 MB)</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="resources.previewHint">
+                            <i class="fas fa-lightbulb mr-1"></i>Click the preview button before downloading to view document contents.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tools & Utilities -->
+                <div class="reveal bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300" style="animation-delay: 0.3s;">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                        <i class="fas fa-tools text-3xl mr-3 text-blue-700"></i>
+                        <span data-i18n="resources.studyTools">Study Tools</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-calendar text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800" data-i18n="resources.courseSchedule">Course Schedule</p>
+                                <p class="text-sm text-gray-600" data-i18n="resources.courseScheduleDesc">Class times and important dates</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <a href="https://t.me/joinchat/ETSTC-StudentCommunity" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-900 font-semibold" data-i18n="resources.studentCommunity">
+                                    Student Community (Telegram)
+                                </a>
+                                <p class="text-sm text-gray-600" data-i18n="resources.studentCommunityDesc">Join our study group and connect with peers</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <a href="mailto:itcourse@etstc.edu" class="text-blue-700 hover:text-blue-900 font-semibold" data-i18n="resources.contactTeacher">
+                                    Contact Your Teacher
+                                </a>
+                                <p class="text-sm text-gray-600" data-i18n="resources.contactTeacherDesc">Get help and ask questions via email</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-book text-blue-700 mr-2 mt-1"></i>
+                            <div>
+                                <a href="subjects.html" class="text-blue-700 hover:text-blue-900 font-semibold" data-i18n="resources.browseSubjects">
+                                    Browse All Subjects
+                                </a>
+                                <p class="text-sm text-gray-600" data-i18n="resources.browseSubjectsDesc">Access materials for all course subjects</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Additional Help Section -->
+            <div class="mt-12 reveal">
+                <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-3xl shadow-2xl p-10 text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black opacity-10"></div>
+                    <div class="relative z-10">
+                <h3 class="text-xl font-bold text-white mb-4" data-i18n="resources.needMoreHelp">Need More Help?</h3>
+                <p class="text-blue-100 mb-4" data-i18n="resources.needMoreHelpDesc">
+                    If you need additional resources or have questions about the course materials, don't hesitate to reach out:
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="mailto:itcourse@etstc.edu" class="inline-block bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors font-semibold text-center" data-i18n="resources.emailTeacher">
+                        Email Teacher
+                    </a>
+                    <a href="https://t.me/joinchat/ETSTC-StudentCommunity" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-100 text-blue-800 px-6 py-2 rounded-lg hover:bg-blue-200 transition-colors font-semibold text-center border border-blue-300" data-i18n="resources.joinCommunity">
+                        Join Community
+                    </a>
+                    <a href="../index.html" class="inline-block bg-blue-100 text-blue-800 px-6 py-2 rounded-lg hover:bg-blue-200 transition-colors font-semibold text-center border border-blue-300" data-i18n="resources.backToHome">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <span data-i18n="footer.copyright">©</span> <span id="year"></span> <span data-i18n="footer.rights">BT3 IT Course, ETSTC. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/docs-preview.js"></script>
+    <script>
+        // Hamburger Menu & Sidebar Functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const body = document.body;
+        
+        function openSidebar() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (sidebar && sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                hamburger && !hamburger.contains(e.target)) {
+                closeSidebar();
+            }
+        });
+        
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+        
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollProgress + '%';
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll reveal animations
+            const reveals = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+        });
+    </script>
+    <script type="module">
+        // Initialize language switcher
+        import i18n from '../js/i18n.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language switcher buttons
+            document.querySelectorAll('[data-lang]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    i18n.setLanguage(lang);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Subject | BT3 IT Course</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header / Navigation Bar -->
+    <header class="bg-blue-700 shadow">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                <a href="../index.html" class="hover:text-blue-200 transition-colors">BT3 IT Course <span class="text-blue-200">| ETSTC</span></a>
+            </h1>
+            <nav class="desktop-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="../index.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.home">Home</a>
+                    </li>
+                    <li>
+                        <a href="subjects.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.subjects">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="resources.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.resources">Student Resources</a>
+                    </li>
+                    <li>
+                        <a href="chat.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.chat">Chat</a>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li>
+                        <div class="language-switcher" data-language-switcher>
+                            <button data-lang="en" aria-pressed="true" title="English">EN</button>
+                            <button data-lang="fr" aria-pressed="false" title="Français">FR</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="../index.html" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="subjects.html" class="active" data-i18n="nav.subjects">Subjects</a>
+                </li>
+                <li>
+                    <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="resources.html" data-i18n="nav.resources">Student Resources</a>
+                </li>
+                <li>
+                    <a href="chat.html" data-i18n="nav.chat">Chat</a>
+                </li>
+                <!-- Language Switcher in Sidebar -->
+                <li class="mt-4 pt-4 border-t border-white/20">
+                    <div class="language-switcher mx-2" data-language-switcher>
+                        <button data-lang="en" aria-pressed="true" class="w-full">EN</button>
+                        <button data-lang="fr" aria-pressed="false" class="w-full">FR</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Breadcrumb Navigation -->
+        <section class="bg-blue-50 py-4">
+            <div class="container mx-auto px-6">
+                <nav class="text-sm text-blue-700">
+                    <a href="../index.html" class="hover:text-blue-900">Home</a>
+                    <span class="mx-2">/</span>
+                    <a href="subjects.html" class="hover:text-blue-900">Subjects</a>
+                    <span class="mx-2">/</span>
+                    <span id="breadcrumb-subject" class="text-gray-600">Subject</span>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Subject Header -->
+        <section class="bg-white py-12 shadow-inner">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center mb-4">
+                    <i id="subject-icon" class="fas fa-book text-5xl mr-4 text-blue-700"></i>
+                    <div>
+                        <h2 id="subject-title" class="text-4xl font-extrabold text-blue-800 mb-2">Loading...</h2>
+                        <p id="subject-description" class="text-lg text-gray-700">Loading subject information...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject Content -->
+        <section class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-4">Course Materials</h3>
+                        <div id="subject-content" class="text-gray-700">
+                            <div class="empty-state text-left">
+                                <div class="empty-state-icon"><i class="fas fa-book text-6xl text-blue-400"></i></div>
+                                <h3 class="empty-state-title mb-4">Course Materials Coming Soon</h3>
+                                <p class="empty-state-text mb-4">
+                                    Course materials, lectures, and study resources will be available here. 
+                                    Your instructor will add content as the course progresses.
+                                </p>
+                                <span class="coming-soon-badge inline-block mt-4" data-i18n="subjects.contentComingSoon">Content Coming Soon</span>
+                                
+                                <!-- Ghost cards preview -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                                    <div class="ghost-card" style="min-height: 120px; animation-delay: 0s;"></div>
+                                    <div class="ghost-card" style="min-height: 120px; animation-delay: 0.2s;"></div>
+                                </div>
+                                
+                                <!-- File Upload Section for Students -->
+                                <div class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+                                    <h4 class="text-lg font-bold text-blue-800 dark:text-white mb-3 flex items-center">
+                                        <i class="fas fa-cloud-upload-alt text-2xl mr-2 text-blue-700"></i>
+                                        <span data-i18n="resources.uploadFiles">Upload Files</span>
+                                    </h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4" data-i18n="resources.uploadFilesDesc">
+                                        Upload your documents, images, or study materials for this subject.
+                                    </p>
+                                    
+                                    <div id="subject-upload-area" class="border-2 border-dashed border-blue-300 dark:border-blue-700 rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-600 transition-colors cursor-pointer bg-white dark:bg-gray-800">
+                                        <input type="file" id="subject-file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.zip,.txt" class="hidden">
+                                        <div id="subject-upload-content">
+                                            <i class="fas fa-folder-open text-4xl mb-3 text-blue-400"></i>
+                                            <p class="text-gray-700 dark:text-gray-300 font-medium mb-2 text-sm" data-i18n="resources.dragDrop">
+                                                Drag and drop files here
+                                            </p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" data-i18n="resources.orClickToBrowse">
+                                                or click to browse
+                                            </p>
+                                            <button type="button" class="btn-primary px-4 py-2 rounded-lg text-white font-semibold text-sm" data-i18n="common.selectFiles">
+                                                Select Files
+                                            </button>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-3" data-i18n="resources.supportedFormats">
+                                                Supported: PDF, DOC, DOCX, JPG, PNG, GIF, ZIP, TXT (Max 10MB per file)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="subject-uploaded-files" class="mt-6">
+                                        <h5 class="font-semibold text-gray-800 dark:text-white mb-3 text-sm" data-i18n="resources.uploadedFiles">Your Uploaded Files</h5>
+                                        <div id="subject-files-list" class="space-y-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-4">Study Resources</h3>
+                        <ul id="study-resources" class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-file-alt text-blue-700 mr-2 mt-1"></i>
+                                <span class="text-gray-700">Additional study materials will be available here</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow p-6 mb-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">Quick Info</h3>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <span class="font-semibold text-gray-700">Folder:</span>
+                                <span id="subject-folder" class="text-gray-600 ml-2">-</span>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-700">Last Updated:</span>
+                                <span class="text-gray-600 ml-2">Coming soon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">Related Links</h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="subjects.html" class="text-blue-700 hover:text-blue-900 underline text-sm">← Back to All Subjects</a>
+                            </li>
+                            <li>
+                                <a href="resources.html" class="text-blue-700 hover:text-blue-900 underline text-sm">Student Resources</a>
+                            </li>
+                            <li>
+                                <a href="mailto:itcourse@etstc.edu" class="text-blue-700 hover:text-blue-900 underline text-sm">Contact Teacher</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            &copy; <span id="year"></span> BT3 IT Course, ETSTC. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Hamburger Menu & Sidebar Functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const body = document.body;
+        
+        function openSidebar() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        }
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (sidebar && sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                hamburger && !hamburger.contains(e.target)) {
+                closeSidebar();
+            }
+        });
+        
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+        
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollProgress + '%';
+            }
+        });
+        
+        // Subject data mapping
+        const subjects = {
+            'Assemblage': {
+                name: 'Assemblage',
+                icon: '<i class="fas fa-tools"></i>',
+                description: 'Learn computer assembly, hardware components, and system configuration. Master the fundamentals of building and maintaining computer systems.'
+            },
+            'math': {
+                name: 'Math',
+                icon: '<i class="fas fa-calculator"></i>',
+                description: 'Essential mathematics for IT professionals. Cover topics including algebra, discrete mathematics, and computational problem-solving.'
+            },
+            'methodology': {
+                name: 'Methodology',
+                icon: '<i class="fas fa-clipboard-list"></i>',
+                description: 'Software development methodologies, project management, and best practices in IT project execution and team collaboration.'
+            },
+            'PAS (OS)': {
+                name: 'Operating Systems (PAS)',
+                icon: '<i class="fas fa-laptop-code"></i>',
+                description: 'Deep dive into operating systems. Learn about process management, memory management, file systems, and system architecture.'
+            },
+            'resaux (network)': {
+                name: 'Networks (Resaux)',
+                icon: '<i class="fas fa-network-wired"></i>',
+                description: 'Network fundamentals, protocols, routing, switching, and network security. Build practical networking skills for modern IT infrastructure.'
+            },
+            'coding': {
+                name: 'Programming',
+                icon: '<i class="fas fa-code"></i>',
+                description: 'C programming fundamentals only. Learn C syntax, control flow, functions, pointers, arrays, and structured problem solving.'
+            },
+            'access': {
+                name: 'Access',
+                icon: '<i class="fas fa-database"></i>',
+                description: 'Microsoft Access database management. Design and create databases, build forms, queries, and reports for data management.'
+            },
+            'arabic': {
+                name: 'Arabic',
+                icon: '<i class="fas fa-book-reader"></i>',
+                description: 'Arabic language studies for IT professionals. Communication skills and technical terminology in Arabic.'
+            },
+            'french': {
+                name: 'French',
+                icon: '<i class="fas fa-language"></i>',
+                description: 'French language studies for IT professionals. Technical communication and professional language skills in French.'
+            },
+            'law': {
+                name: 'Law',
+                icon: '<i class="fas fa-gavel"></i>',
+                description: 'IT law and legal frameworks. Understanding digital rights, privacy laws, cybersecurity regulations, and legal aspects of technology.'
+            },
+            'socio': {
+                name: 'Sociology',
+                icon: '<i class="fas fa-users"></i>',
+                description: 'Sociology in the context of technology. Explore how technology impacts society, social behavior, and digital communities.'
+            }
+        };
+
+        // Load subject based on query parameter with validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const subjectFolder = getQueryParam('subject');
+            
+            // Validate query parameter
+            if (!subjectFolder) {
+                // No subject parameter, redirect to subjects page
+                window.location.href = 'subjects.html';
+                return;
+            }
+            
+            // Decode and validate subject
+            const decodedFolder = decodeURIComponent(subjectFolder);
+            
+            if (subjects[decodedFolder]) {
+                const subject = subjects[decodedFolder];
+                
+                // Update page title
+                document.getElementById('page-title').textContent = subject.name + ' | BT3 IT Course';
+                document.getElementById('breadcrumb-subject').textContent = subject.name;
+                document.getElementById('subject-icon').innerHTML = subject.icon;
+                document.getElementById('subject-title').textContent = subject.name;
+                document.getElementById('subject-description').textContent = subject.description;
+                document.getElementById('subject-folder').textContent = decodedFolder;
+            } else {
+                // Invalid subject - show error message
+                document.getElementById('subject-title').textContent = 'Subject Not Found';
+                document.getElementById('subject-description').textContent = `The subject "${decodedFolder}" could not be found. It may have been removed or the URL is incorrect.`;
+                document.getElementById('subject-folder').textContent = decodedFolder;
+                
+                // Add error styling
+                const subjectHeader = document.querySelector('#subject-title').closest('section');
+                if (subjectHeader) {
+                    subjectHeader.classList.add('bg-red-50');
+                }
+            }
+        });
+        </script>
+    </body>
+</html>
+

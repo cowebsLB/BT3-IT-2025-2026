@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="home.title">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BT3 IT Study Course | ETSTC</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="js/i18n.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header / Navigation Bar -->
+    <header class="bg-blue-700 shadow">
+        <div class="container mx-auto flex items-center justify-between py-4 px-6">
+            <h1 class="text-2xl font-bold text-white tracking-tight">
+                BT3 IT Course <span class="text-blue-200">| ETSTC</span>
+            </h1>
+            <nav class="desktop-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="index.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.home">Home</a>
+                    </li>
+                    <li>
+                        <a href="pages/subjects.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.subjects">Subjects</a>
+                    </li>
+                    <li>
+                        <a href="pages/gallery.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.gallery">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="pages/resources.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.resources">Student Resources</a>
+                    </li>
+                    <li>
+                        <a href="pages/chat.html" class="text-blue-100 hover:text-white font-medium transition-colors duration-200" data-i18n="nav.chat">Chat</a>
+                    </li>
+                    <!-- Language Switcher -->
+                    <li>
+                        <div class="language-switcher" data-language-switcher>
+                            <button data-lang="en" aria-pressed="true" data-i18n-aria-label="accessibility.changeLanguage">EN</button>
+                            <button data-lang="fr" aria-pressed="false" data-i18n-aria-label="accessibility.changeLanguage">FR</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" data-i18n-aria-label="accessibility.toggleMenu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="pages/subjects.html" data-i18n="nav.subjects">Subjects</a>
+                </li>
+                <li>
+                    <a href="pages/gallery.html" data-i18n="nav.gallery">Gallery</a>
+                </li>
+                <li>
+                    <a href="pages/resources.html" data-i18n="nav.resources">Student Resources</a>
+                </li>
+                <li>
+                    <a href="pages/chat.html" data-i18n="nav.chat">Chat</a>
+                </li>
+                <!-- Language Switcher in Sidebar -->
+                <li class="mt-4 pt-4 border-t border-white/20">
+                    <div class="language-switcher mx-2" data-language-switcher>
+                        <button data-lang="en" aria-pressed="true" class="w-full" data-i18n-aria-label="accessibility.changeLanguage">EN</button>
+                        <button data-lang="fr" aria-pressed="false" class="w-full" data-i18n-aria-label="accessibility.changeLanguage">FR</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20 md:py-32 overflow-hidden">
+            <div class="bg-pattern"></div>
+            <!-- Scroll Hint -->
+            <div class="scroll-hint hidden md:block">
+                <span class="text-sm font-medium" data-i18n="home.scrollToExplore">Scroll to explore</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+            <div class="container mx-auto flex flex-col md:flex-row items-center px-6 relative z-10">
+                <div class="md:w-2/3 mb-12 md:mb-0 hero-text">
+                    <h2 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                        <span class="gradient-text block mb-2" data-i18n="home.title">Welcome, Students!</span>
+                        <span class="text-gray-800 text-4xl md:text-6xl font-bold" data-i18n="home.subtitle">Start Your IT Journey</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed" data-i18n-html="home.descriptionHtml">
+                        Dive into the <span class="font-bold text-blue-600">BT3 IT Study Course</span>, designed with students in mind. Explore modern IT knowledge, hands-on projects, and real-world skills with ETSTC.
+                    </p>
+                    <p class="text-lg text-gray-500 mb-10" data-i18n="home.description2">
+                        Connect with peers, join study groups, and make the most of our student portal for extra tips and learning materials. Begin your learning journey with a supportive community and dedicated educators who care about your growth.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="pages/subjects.html" class="btn-primary ripple inline-block text-white px-8 py-4 rounded-xl shadow-lg font-bold text-lg transform hover:scale-105 transition-all duration-300" data-action="navigate" data-target="subjects">
+                            <span class="relative z-10" data-i18n="home.exploreSubjects">Explore Subjects →</span>
+                        </a>
+                        <a href="pages/resources.html" class="btn-secondary ripple inline-block bg-white text-blue-700 px-8 py-4 rounded-xl shadow-lg font-bold text-lg hover:text-white transition-all duration-300" data-action="navigate" data-target="resources">
+                            <span class="relative z-10" data-i18n="nav.resources">Student Resources</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center relative">
+                    <div class="relative floating">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 rounded-3xl blur-2xl opacity-50 animate-pulse"></div>
+                        <img src="assets/hero-image.svg" alt="" data-i18n-alt="home.heroImageAlt" class="relative w-full max-w-md rounded-3xl shadow-2xl img-hover-scale">
+                    </div>
+                </div>
+            </div>
+            <!-- Decorative elements -->
+            <div class="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 floating"></div>
+            <div class="absolute bottom-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 floating-delayed"></div>
+        </section>
+        <!-- Student Spotlights Section -->
+        <section class="relative bg-gradient-to-b from-white via-blue-50 to-white py-20 overflow-hidden">
+            <div class="bg-pattern"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h3 class="text-4xl md:text-5xl font-black mb-4">
+                        <span class="gradient-text" data-i18n="spotlights.title">Student Spotlights</span>
+                    </h3>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-i18n="spotlights.subtitle">Hear from students who are thriving in our program</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="testimonial-card bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 flex flex-col items-center reveal">
+                        <div class="relative mb-6">
+                            <div class="absolute -inset-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur opacity-75"></div>
+                            <img src="assets/student1.png" alt="" data-i18n-alt="spotlights.studentAlt" class="relative w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                        </div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800" data-i18n="spotlights.student1.name">Sara K.</h4>
+                        <p class="text-gray-600 text-center leading-relaxed" data-i18n="spotlights.student1.quote">
+                            "The collaborative projects and support from teachers helped me learn programming and make new friends. The resources page was a lifesaver before exams!"
+                        </p>
+                    </div>
+                    <div class="testimonial-card bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 flex flex-col items-center reveal" style="animation-delay: 0.2s;">
+                        <div class="relative mb-6">
+                            <div class="absolute -inset-2 bg-gradient-to-r from-purple-400 to-cyan-400 rounded-full blur opacity-75"></div>
+                            <img src="assets/student2.png" alt="" data-i18n-alt="spotlights.studentAlt" class="relative w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                        </div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800" data-i18n="spotlights.student2.name">Mahmoud E.</h4>
+                        <p class="text-gray-600 text-center leading-relaxed" data-i18n="spotlights.student2.quote">
+                            "I loved the interactive lessons and how we could share code snippets. The student community makes everything more enjoyable."
+                        </p>
+                    </div>
+                    <div class="testimonial-card bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 flex flex-col items-center reveal" style="animation-delay: 0.4s;">
+                        <div class="relative mb-6">
+                            <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full blur opacity-75"></div>
+                            <img src="assets/student3.png" alt="" data-i18n-alt="spotlights.studentAlt" class="relative w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                        </div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800" data-i18n="spotlights.student3.name">Leila T.</h4>
+                        <p class="text-gray-600 text-center leading-relaxed" data-i18n="spotlights.student3.quote">
+                            "ETSTC's events and workshops helped me build confidence and discover my interests in IT. Highly recommended for all students!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Quick Links for Students -->
+        <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 py-16 overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-12 reveal">
+                    <h3 class="text-3xl md:text-4xl font-black text-white mb-4" data-i18n="quickLinks.title">Quick Links for Students</h3>
+                    <p class="text-blue-100 text-lg" data-i18n="quickLinks.subtitle">Everything you need, right at your fingertips</p>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 reveal" style="animation-delay: 0.2s;">
+                    <a href="pages/resources.html" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-xl shadow-2xl font-bold hover:scale-110 transition-all duration-300 overflow-hidden">
+                        <span class="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        <span class="relative z-10 flex items-center gap-2" data-i18n="quickLinks.learningResources">
+                            📚 Learning Resources
+                        </span>
+                    </a>
+                    <a href="mailto:itcourse@etstc.edu" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl border-2 border-white/30 font-bold hover:bg-white hover:text-blue-600 transition-all duration-300 hover:scale-110">
+                        <span class="flex items-center gap-2" data-i18n="quickLinks.contactTeacher">
+                            ✉️ Contact Your Teacher
+                        </span>
+                    </a>
+                    <a href="https://t.me/joinchat/ETSTC-StudentCommunity" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl border-2 border-white/30 font-bold hover:bg-white hover:text-blue-600 transition-all duration-300 hover:scale-110">
+                        <span class="flex items-center gap-2" data-i18n="quickLinks.studentCommunity">
+                            💬 Student Community
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-blue-900 text-blue-100 py-6 mt-12">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <span data-i18n="footer.copyright">©</span> <span id="year"></span> <span data-i18n="footer.rights">BT3 IT Course, ETSTC. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Footer current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll reveal animations
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        reveals.forEach(reveal => revealObserver.observe(reveal));
+        
+        // Hamburger Menu & Sidebar Functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const body = document.body;
+        
+        function openSidebar() {
+            hamburger.classList.add('active');
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('sidebar-open');
+        }
+        
+        function closeSidebar() {
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('sidebar-open');
+        }
+        
+        // Toggle sidebar on hamburger click
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+        
+        // Close sidebar when clicking overlay
+        overlay.addEventListener('click', closeSidebar);
+        
+        // Close sidebar when clicking outside (on document)
+        document.addEventListener('click', function(e) {
+            if (sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                closeSidebar();
+            }
+        });
+        
+        // Close sidebar when clicking a link inside sidebar
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+        
+        // Prevent scrolling on body when sidebar is open (already handled by CSS, but adding escape key)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+        
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollProgress + '%';
+            }
+        });
+        
+        // Keyboard Navigation for Sidebar
+        document.addEventListener('keydown', function(e) {
+            // Tab navigation within sidebar when open
+            if (sidebar.classList.contains('open') && e.key === 'Tab') {
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                const firstLink = sidebarLinks[0];
+                const lastLink = sidebarLinks[sidebarLinks.length - 1];
+                
+                if (e.shiftKey && document.activeElement === firstLink) {
+                    e.preventDefault();
+                    hamburger.focus();
+                } else if (!e.shiftKey && document.activeElement === lastLink) {
+                    e.preventDefault();
+                    hamburger.focus();
+                }
+            }
+        });
+        
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply saved theme
+        if (currentTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeToggle.setAttribute('data-theme', 'dark');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            themeToggle.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+    <script src="js/main.js"></script>
+    <script src="js/easter-eggs.js"></script>
+    <script type="module">
+        // Initialize language switcher
+        import i18n from './js/i18n.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language switcher buttons
+            document.querySelectorAll('[data-lang]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    i18n.setLanguage(lang);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
