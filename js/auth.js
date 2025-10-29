@@ -35,6 +35,8 @@
 
     async function onLogin(e){
         e.preventDefault();
+        if (window.SupabaseConfig?.init) await window.SupabaseConfig.init();
+        if (window.SupabaseConfig?.ready) await window.SupabaseConfig.ready();
         const client = getClient();
         if (!client) { showMessage('Auth not ready. Try again.', false); return; }
         const email = /** @type {HTMLInputElement} */(document.getElementById('login-email')).value.trim();
@@ -47,6 +49,8 @@
 
     async function onSignup(e){
         e.preventDefault();
+        if (window.SupabaseConfig?.init) await window.SupabaseConfig.init();
+        if (window.SupabaseConfig?.ready) await window.SupabaseConfig.ready();
         const client = getClient();
         if (!client) { showMessage('Auth not ready. Try again.', false); return; }
         const name = /** @type {HTMLInputElement} */(document.getElementById('signup-name')).value.trim();

@@ -4,11 +4,14 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 // Initialize Supabase client
 let supabaseClient = null;
+let resolveReadyPromise;
+const readyPromise = new Promise((resolve) => { resolveReadyPromise = resolve; });
 
 // Load Supabase library and initialize
 async function initSupabase() {
     if (window.supabase) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        if (resolveReadyPromise) resolveReadyPromise(supabaseClient);
         return supabaseClient;
     }
     
@@ -19,6 +22,7 @@ async function initSupabase() {
         script.onload = () => {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             console.log('Supabase client initialized');
+            if (resolveReadyPromise) resolveReadyPromise(supabaseClient);
         };
         document.head.appendChild(script);
     }
@@ -35,6 +39,7 @@ if (document.readyState === 'loading') {
 window.SupabaseConfig = {
     getClient: () => supabaseClient,
     init: initSupabase,
+    ready: () => readyPromise,
     url: SUPABASE_URL,
     key: SUPABASE_ANON_KEY
 };
